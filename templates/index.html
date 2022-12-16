@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+<body>
+    <div class="ui container" style="margin-top:50px">
+    <h1 class="ui center aligned header"><b>REMINDER</b></h1>
+    <form class="timing" action="/add" method="post">
+        <div class="field">
+            <label for="title">Remind me to...</label><br>
+            <input type="text" class="fieldtext" name="title" placeholder="Enter Reminder..."><br>
+        </div>
+        <div class="timebtn">
+            <input type="text" class="btn" name="hourtime" placeholder="00"><br>
+            <input type="text" class="btn" name="mintime" placeholder="00"><br>
+            
+        </div>
+        <button class="ui pink button" type="submit">Add</button>
+
+    </form>
+    <style>
+        .timing{
+            
+            
+            display: flex;
+        }
+        .timebtn{
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-right: 10px;
+           
+            
+        }
+        .fieldtext{
+            width:500px;
+            padding:10px;
+            margin-right: 10px;
+            border: 0.5px solid rgb(155, 152, 152);
+        }
+        .btn{
+            border: 0.5px solid rgb(155, 152, 152);
+            width: 50px;
+            height: 40px;
+            margin-right: 10px;
+            
+           
+        }
+    </style>
+
+
+    {% for todo in todo_list %}
+    <div class="ui segment"> 
+    <p class="ui big header">{{todo.id}}){{todo.title}} at {{todo.hourtime}}:{{todo.mintime}}</p>    <!--jinja code-->
+    {% if todo.complete==False %}
+    <span class="ui gray label">Reminder Off</span>
+    {% else %}
+    <span class="ui green label">Reminder On</span>
+    {% endif %}
+
+    <a class="ui pink button" href="/update/{{ todo.id }}" >Update</a>
+    <a class="ui red button" href="/delete/{{ todo.id }}" >Delete</a>
+</div>
+    {% endfor %}
+    
+</div>
+</body>
+</html>
